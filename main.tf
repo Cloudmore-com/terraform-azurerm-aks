@@ -71,7 +71,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
     }
   }
 
-  azure_role_based_access_control {
+  azure_active_directory_role_based_access_control {
     enabled = var.enable_role_based_access_control
 
     dynamic "azure_active_directory" {

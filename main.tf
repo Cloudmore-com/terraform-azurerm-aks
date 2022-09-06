@@ -30,7 +30,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   default_node_pool {
     name                         = var.default_pool_name
     vm_size                      = var.vm_size
-    availability_zones           = var.availability_zones
+    zones                        = var.availability_zones
     enable_auto_scaling          = var.enable_auto_scaling
     enable_host_encryption       = var.enable_host_encryption
     enable_node_public_ip        = var.enable_node_public_ip
@@ -58,8 +58,8 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 
   identity {
-    type                      = var.user_assigned_identity_id == "" ? "SystemAssigned" : "UserAssigned"
-    user_assigned_identity_id = var.user_assigned_identity_id == "" ? null : var.user_assigned_identity_id
+    type         = var.user_assigned_identity_id == "" ? "SystemAssigned" : "UserAssigned"
+    identity_ids = var.user_assigned_identity_id == "" ? null : [var.user_assigned_identity_id]
   }
 
   linux_profile {
@@ -71,31 +71,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
     }
   }
 
-  addon_profile {
-    aci_connector_linux {
-      enabled     = var.enable_aci_connector_linux
-      subnet_name = var.enable_aci_connector_linux ? var.aci_connector_linux_subnet_name : null
-    }
-
-    azure_policy {
-      enabled = var.enable_azure_policy
-    }
-
-    http_application_routing {
-      enabled = var.enable_http_application_routing
-    }
-
-    kube_dashboard {
-      enabled = var.enabled_kube_dashboard
-    }
-
-    oms_agent {
-      enabled                    = var.enable_log_analytics_workspace
-      log_analytics_workspace_id = var.enable_log_analytics_workspace ? azurerm_log_analytics_workspace.main[0].id : null
-    }
-  }
-
-  role_based_access_control {
+  azure_role_based_access_control {
     enabled = var.enable_role_based_access_control
 
     dynamic "azure_active_directory" {

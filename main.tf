@@ -80,6 +80,13 @@ resource "azurerm_kubernetes_cluster" "aks" {
     }
   }
 
+  dynamic "oms_agent" {
+    for_each = var.enable_log_analytics_workspace ? ["oms"] : []
+    content {
+      log_analytics_workspace_id = var.enable_log_analytics_workspace ? azurerm_log_analytics_workspace.main[0].id : null
+    }
+  }
+
   dynamic "azure_active_directory_role_based_access_control" {
     for_each = var.enable_role_based_access_control && var.enable_azure_active_directory && !var.rbac_aad_managed ? ["rbac"] : []
     content {
@@ -164,5 +171,5 @@ resource "azurerm_role_assignment" "aks" {
 
   scope                = azurerm_kubernetes_cluster.aks.id
   role_definition_name = "Monitoring Metrics Publisher"
-  principal_id         = azurerm_kubernetes_cluster.aks.kubelet_identity[0].object_id
+  principal_id         = azurerm_kubernetes_cluster.aks.oms_agent[0].oms_agent_identity[0].object_id
 }

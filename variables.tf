@@ -452,7 +452,7 @@ Specifies the SKU of the Load Balancer used for this Kubernetes Cluster.
 Possible values are Basic and Standard.
 EOT
   type        = string
-  default     = "Standard"
+  default     = "standard"
 }
 
 # end - network profile

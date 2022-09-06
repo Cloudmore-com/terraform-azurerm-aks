@@ -164,5 +164,5 @@ resource "azurerm_role_assignment" "aks" {
 
   scope                = azurerm_kubernetes_cluster.aks.id
   role_definition_name = "Monitoring Metrics Publisher"
-  principal_id         = azurerm_kubernetes_cluster.aks.addon_profile[0].oms_agent[0].oms_agent_identity[0].object_id
+  principal_id         = azurerm_kubernetes_cluster.aks.kubelet_identity[0].object_id
 }

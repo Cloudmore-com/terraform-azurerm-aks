@@ -98,6 +98,14 @@ resource "azurerm_kubernetes_cluster" "aks" {
     }
   }
 
+  dynamic "auto_scaler_profile" {
+    for_each = var.spot_enabled ? ["spot"] : []
+    content {
+      expander                      = "priority"
+      skip_nodes_with_local_storage = false
+    }
+  }
+
   network_profile {
     network_plugin     = var.network_plugin
     network_policy     = var.network_policy

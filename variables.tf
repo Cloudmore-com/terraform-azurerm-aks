@@ -561,6 +561,11 @@ variable "acr_id" {
   default     = ""
 }
 
+variable "spot_enabled" {
+  default     = false
+  description = "change cluster autoscaler expander to favour spot"
+}
+
 variable "node_pools" {
   description = <<EOT
 Allows to create multiple Node Pools.

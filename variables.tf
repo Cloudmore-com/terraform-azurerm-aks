@@ -343,6 +343,10 @@ variable "enable_azure_active_directory" {
   default     = false
 }
 
+variable "azure_rbac_enabled" {
+  default = true
+}
+
 variable "rbac_aad_managed" {
   description = <<EOT
 Is the Azure Active Directory integration Managed, meaning that Azure will

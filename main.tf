@@ -76,6 +76,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
     for_each = var.enable_role_based_access_control && var.enable_azure_active_directory && var.rbac_aad_managed ? ["rbac"] : []
     content {
       managed                = true
+      azure_rbac_enabled     = var.azure_rbac_enabled
       admin_group_object_ids = var.rbac_aad_admin_group_object_ids
     }
   }

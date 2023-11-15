@@ -68,6 +68,11 @@ output "identity" {
   value       = azurerm_kubernetes_cluster.aks.identity
 }
 
+output "oidc_issuer_url" {
+  description = "oidc Issuer URL"
+  value       = azurerm_kubernetes_cluster.aks.oidc_issuer_url
+}
+
 # output "client_key" {
 #   description = "Client Key"
 #   value       = azurerm_kubernetes_cluster.aks.kube_config[0].client_key

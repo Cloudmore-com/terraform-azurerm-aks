@@ -566,6 +566,14 @@ variable "spot_enabled" {
   description = "change cluster autoscaler expander to favour spot"
 }
 
+variable "enable_workload_identity" {
+  default = true
+}
+
+variable "enable_oidc_issuer" {
+  default = true
+}
+
 variable "node_pools" {
   description = <<EOT
 Allows to create multiple Node Pools.

@@ -125,6 +125,8 @@ resource "azurerm_kubernetes_cluster" "aks" {
   private_dns_zone_id             = var.private_dns_zone_id
   node_resource_group             = var.node_resource_group
   sku_tier                        = var.sku_tier
+  workload_identity_enabled       = var.enable_workload_identity
+  oidc_issuer_enabled             = var.enable_workload_identity ? true : var.enable_oidc_issuer
 
   tags = var.tags
 }

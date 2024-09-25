@@ -110,16 +110,20 @@ resource "azurerm_kubernetes_cluster" "aks" {
     network_plugin     = var.network_plugin
     network_policy     = var.network_policy
     dns_service_ip     = var.dns_service_ip
-    docker_bridge_cidr = var.docker_bridge_cidr
     outbound_type      = var.outbound_type
     pod_cidr           = var.pod_cidr
     service_cidr       = var.service_cidr
     load_balancer_sku  = var.load_balancer_sku
   }
 
-  automatic_channel_upgrade       = var.automatic_channel_upgrade
+  automatic_upgrade_channel       = var.automatic_channel_upgrade
   kubernetes_version              = var.kubernetes_version
-  api_server_authorized_ip_ranges = var.api_server_authorized_ip_ranges
+  dynamic "api_server_access_profile" {
+    for_each = var.api_server_authorized_ip_ranges != null ? ["create"] : []
+    content {
+      authorized_ip_ranges = var.api_server_authorized_ip_ranges
+    }
+  }
   disk_encryption_set_id          = var.disk_encryption_set_id
   private_cluster_enabled         = var.private_cluster_enabled
   private_dns_zone_id             = var.private_dns_zone_id

@@ -32,9 +32,9 @@ resource "azurerm_kubernetes_cluster" "aks" {
     name                         = var.default_pool_name
     vm_size                      = var.vm_size
     zones                        = var.availability_zones
-    enable_auto_scaling          = var.enable_auto_scaling
-    enable_host_encryption       = var.enable_host_encryption
-    enable_node_public_ip        = var.enable_node_public_ip
+    auto_scaling_enabled         = var.enable_auto_scaling
+    host_encryption_enabled      = var.enable_host_encryption
+    node_public_ip_enabled       = var.enable_node_public_ip
     max_pods                     = var.max_pods
     node_labels                  = var.node_labels
     only_critical_addons_enabled = var.only_critical_addons_enabled

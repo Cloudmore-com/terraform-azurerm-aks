@@ -73,10 +73,9 @@ resource "azurerm_kubernetes_cluster_node_pool" "regular" {
   min_count              = each.value.min_count
   node_count             = each.value.node_count
 
-  dynamic "upgrade_settings" {
-    for_each = var.max_surge == null ? [] : ["upgrade_settings"]
-    content {
-      max_surge = each.value.max_surge
-    }
+  upgrade_settings {
+    drain_timeout_in_minutes  = 30 
+    node_soak_duration_in_minutes = 0
+    max_surge = ""
   }
 }

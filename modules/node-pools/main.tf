@@ -14,6 +14,9 @@ resource "azurerm_kubernetes_cluster_node_pool" "spot" {
   name                   = each.value.name
   vm_size                = each.value.vm_size
   zones                  = each.value.availability_zones
+  auto_scaling_enabled   = each.value.enable_auto_scaling
+  host_encryption_enabled = each.value.enable_host_encryption
+  node_public_ip_enabled =  each.value.enable_node_public_ip
   enable_auto_scaling    = each.value.enable_auto_scaling
   enable_host_encryption = each.value.enable_host_encryption
   enable_node_public_ip  = each.value.enable_node_public_ip

@@ -75,7 +75,6 @@ resource "azurerm_kubernetes_cluster" "aks" {
   dynamic "azure_active_directory_role_based_access_control" {
     for_each = var.enable_role_based_access_control && var.enable_azure_active_directory && var.rbac_aad_managed ? ["rbac"] : []
     content {
-      managed                = true
       azure_rbac_enabled     = var.azure_rbac_enabled
       admin_group_object_ids = var.rbac_aad_admin_group_object_ids
     }
@@ -91,7 +90,6 @@ resource "azurerm_kubernetes_cluster" "aks" {
   dynamic "azure_active_directory_role_based_access_control" {
     for_each = var.enable_role_based_access_control && var.enable_azure_active_directory && !var.rbac_aad_managed ? ["rbac"] : []
     content {
-      managed           = false
       client_app_id     = var.rbac_aad_client_app_id
       server_app_id     = var.rbac_aad_server_app_id
       server_app_secret = var.rbac_aad_server_app_secret

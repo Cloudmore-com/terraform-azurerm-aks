@@ -17,9 +17,6 @@ resource "azurerm_kubernetes_cluster_node_pool" "spot" {
   auto_scaling_enabled   = each.value.enable_auto_scaling
   host_encryption_enabled = each.value.enable_host_encryption
   node_public_ip_enabled =  each.value.enable_node_public_ip
-  enable_auto_scaling    = each.value.enable_auto_scaling
-  enable_host_encryption = each.value.enable_host_encryption
-  enable_node_public_ip  = each.value.enable_node_public_ip
   eviction_policy        = each.value.eviction_policy
   max_pods               = each.value.max_pods
   mode                   = each.value.mode
@@ -60,9 +57,9 @@ resource "azurerm_kubernetes_cluster_node_pool" "regular" {
   name                   = each.value.name
   vm_size                = each.value.vm_size
   zones                  = each.value.availability_zones
-  enable_auto_scaling    = each.value.enable_auto_scaling
-  enable_host_encryption = each.value.enable_host_encryption
-  enable_node_public_ip  = each.value.enable_node_public_ip
+  auto_scaling_enabled   = each.value.enable_auto_scaling
+  host_encryption_enabled = each.value.enable_host_encryption
+  node_public_ip_enabled =  each.value.enable_node_public_ip
   max_pods               = each.value.max_pods
   mode                   = each.value.mode
   node_labels            = each.value.node_labels

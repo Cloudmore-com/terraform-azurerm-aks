@@ -19,7 +19,8 @@ resource "azurerm_kubernetes_cluster" "aks" {
     ignore_changes = [
       default_node_pool[0].node_count,
       default_node_pool[0].tags,
-      upgrade_settings
+      upgrade_settings.drain_timeout_in_minutes,
+      upgrade_settings.max_surge
     ]
   }
 

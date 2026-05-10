@@ -4,7 +4,9 @@ resource "azurerm_kubernetes_cluster_node_pool" "spot" {
   lifecycle {
     ignore_changes = [
       node_count,
-      tags
+      tags,
+      upgrade_settings.drain_timeout_in_minutes,
+      upgrade_settings.max_surge
     ]
   }
 

@@ -5,8 +5,8 @@ resource "azurerm_kubernetes_cluster_node_pool" "spot" {
     ignore_changes = [
       node_count,
       tags,
-      upgrade_settings.drain_timeout_in_minutes,
-      upgrade_settings.max_surge
+      upgrade_settings[0].drain_timeout_in_minutes,
+      upgrade_settings[0].max_surge
     ]
   }
 
@@ -37,7 +37,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "spot" {
   upgrade_settings {
     drain_timeout_in_minutes      = 30
     node_soak_duration_in_minutes = 0
-    max_surge = ""
+    max_surge = "10%"
     }
 
 }
@@ -48,7 +48,9 @@ resource "azurerm_kubernetes_cluster_node_pool" "regular" {
   lifecycle {
     ignore_changes = [
       node_count,
-      tags
+      tags,
+      upgrade_settings[0].drain_timeout_in_minutes,
+      upgrade_settings[0].max_surge
     ]
   }
 
@@ -77,7 +79,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "regular" {
   upgrade_settings {
     drain_timeout_in_minutes      = 30
     node_soak_duration_in_minutes = 0
-    max_surge = ""
+    max_surge = "10%"
     }
 
 }
